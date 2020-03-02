@@ -180,6 +180,53 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2019/06/13/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/">
+        <p class="h4 index-header">数据库设计</p>
+      </a>
+
+      <a href="/2019/06/13/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">数据库字段设计规范优先选择符合存储需要的最小的数据类型原因：
+列的字段越大，建立索引时所需要的空间也就越大，这样一页中所能存储的索引节点的数量也就越少也越少，在遍历时所需要的 IO 次数也就越多，索引的性能也就越差。
+方法：
+a.将字符串转换成数字类型存储,如:将 IP 地址转换成整形数据
+MySQL 提供了两个方法来处理 ip 地址
+•inet_aton 把 ip 转为无符号整型 (4-8 位)•inet_ntoa 把整型的 ip 转为地址
+插入数据前，先用 inet_aton 把 ip 地址转为整型，可以节省空间，显示数据时，使用 inet_ntoa 把整型的 ip 地址转为地址显示即可。
+b.对于非负型的数据 (如自增 ID,整型 IP) 来说,要优先使用无符号整型来存储
+原因：
+无符号相对于有符号可以多出一倍的存储空间
+SIGNED INT -2147483648~2147483647
+UNSIGNED INT 0~4294967295
+VARCHAR(N) 中的 N 代表的是字符数，而不是字节数，使用 UTF8 存储 255 个汉字 Varchar(255)=765 个字节。</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-06-13&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/%E5%AD%A6%E4%B9%A0">学习</a>&nbsp;
+          
+            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a>&nbsp;
+          &nbsp;
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2013/07/13/hello-world/">
         <p class="h4 index-header">Hello World java！</p>
       </a>
