@@ -16,7 +16,7 @@
   <meta name="description" content="Persevere">
   <meta name="author" content="Chuan">
   <meta name="keywords" content="">
-  <title>分类 - 数据库 ~ Chuan的个人博客</title>
+  <title>用爬虫获取直播源 ~ Chuan的个人博客</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -106,7 +106,7 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="view intro-2" id="background" false
          style="background: url('/img/default.png')no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
@@ -116,6 +116,41 @@
               
             </span>
 
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期日, 三月 22日 2020, 10:47 晚上
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    155 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      1 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
             
           </div>
 
@@ -127,36 +162,95 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-<!--  <p class="h4">共计 1 篇文章</p>-->
-  <hr>
-  
-    
       
-      <p class="h5">2019</p>
-    
-    <a href="/2019/06/13/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">数据库设计</span>
-      <span style="float: right;">06-13</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <p><strong>简单写了一个获取B站直播源的小工具  测试能用 以后再详细写思路</strong></p>
+<h1 id="教程："><a href="#教程：" class="headerlink" title="教程："></a>教程：</h1><h2 id="1-准备"><a href="#1-准备" class="headerlink" title="1.准备"></a>1.准备</h2><ul>
+<li>potplayer  (一个播放器 不了解的可以去搜索一下)</li>
+<li>我写的小工具</li>
+</ul>
+<h2 id="2-步骤"><a href="#2-步骤" class="headerlink" title="2 步骤"></a>2 步骤</h2><ol>
+<li><p>打开程序 在上面的框输入B站直播间id（就是直播间地址栏后面的数字）</p>
+</li>
+<li><p>点击确定 获取到直播源地址 </p>
+</li>
+</ol>
+<p>   <img src="https://ftp.bmp.ovh/imgs/2020/03/3c4cfa6aceaa37c5.png" srcset="/img/loading.gif" alt=""></p>
+<ol start="3">
+<li><p>复制直播源地址 打开potplayer 按Ctrl + U  等待弹出界面(可能会有点卡) 然后把地址粘贴进去</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2020/03/55537dc0c537a5ce.png" srcset="/img/loading.gif" alt=""></p>
+</li>
+</ol>
+<ol start="4">
+<li><p>右侧播放列表已经出现视频 双击观看即可</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2020/03/5427c592c89de98b.png" srcset="/img/loading.gif" alt=""></p>
+</li>
+</ol>
+<ol start="5">
+<li><p>效果:</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2020/03/84856e342c0ccd3f.png" srcset="/img/loading.gif" alt=""></p>
+</li>
+</ol>
 
-
-              </div>
-            </div>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0">学习</a>
+                  &nbsp;
+                
+                  <a class="hover-with-bg" href="/categories/%E7%88%AC%E8%99%AB">爬虫</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/%E7%88%AC%E8%99%AB">爬虫</a>
+                
+              </span>
+            
+            </p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -235,6 +329,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smoothscroll/SmoothScroll.min.js" ></script>
@@ -286,7 +385,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "分类 - 数据库&nbsp;",
+        "用爬虫获取直播源&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

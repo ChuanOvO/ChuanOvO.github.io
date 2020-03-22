@@ -4,63 +4,27 @@
   
   
   <entry>
-    <title>建站以及碎碎念</title>
-    <link href="/2019/07/13/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
-    <url>/2019/07/13/%E7%A2%8E%E7%A2%8E%E5%BF%B5/</url>
+    <title>用爬虫获取直播源</title>
+    <link href="/2020/03/22/%E7%94%A8%E7%88%AC%E8%99%AB%E8%8E%B7%E5%8F%96%E7%9B%B4%E6%92%AD%E6%BA%90/"/>
+    <url>/2020/03/22/%E7%94%A8%E7%88%AC%E8%99%AB%E8%8E%B7%E5%8F%96%E7%9B%B4%E6%92%AD%E6%BA%90/</url>
     
-    <content type="html"><![CDATA[<p>　　年前自己试着建了一个个人博客，用的方式是wordpress+服务器，初见很美好，但是我很快发现了问题：这种方式搭建个人博客的成本对于我来说实在是太高了。域名费用还好，稍微好一点的服务器我就已经承担不住了，更不用说建站之后的维护成本。况且这样也违背了我当初的建站目的：记录自己的成长，所以我选择了hexo+github来使我专注于内容本身。<br>  　　2019年也意味着我毕业快两年了，因为自己的任性和懒惰一事无成。有时候想在朋友圈和微博吐槽发泄又觉得太矫情，也不想因为自己而坏了别人的好心情。不管怎么说，今年是最后一次机会了，所以想开这个博客来记录自己。一句谚语与君共勉: “The best time to plant a tree was a decade ago, and following is now.”</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>日记</category>
-      
-      <category>杂谈</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>数据库设计</title>
-    <link href="/2019/06/13/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/"/>
-    <url>/2019/06/13/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/</url>
-    
-    <content type="html"><![CDATA[<h1 id="数据库字段设计规范"><a href="#数据库字段设计规范" class="headerlink" title="数据库字段设计规范"></a>数据库字段设计规范</h1><h2 id="优先选择符合存储需要的最小的数据类型"><a href="#优先选择符合存储需要的最小的数据类型" class="headerlink" title="优先选择符合存储需要的最小的数据类型"></a>优先选择符合存储需要的最小的数据类型</h2><p><strong>原因：</strong></p><p>列的字段越大，建立索引时所需要的空间也就越大，这样一页中所能存储的索引节点的数量也就越少也越少，在遍历时所需要的 IO 次数也就越多，索引的性能也就越差。</p><p><strong>方法：</strong></p><p><strong>a.将字符串转换成数字类型存储,如:将 IP 地址转换成整形数据</strong></p><p>MySQL 提供了两个方法来处理 ip 地址</p><p>•inet_aton 把 ip 转为无符号整型 (4-8 位)•inet_ntoa 把整型的 ip 转为地址</p><p>插入数据前，先用 inet_aton 把 ip 地址转为整型，可以节省空间，显示数据时，使用 inet_ntoa 把整型的 ip 地址转为地址显示即可。</p><p><strong>b.对于非负型的数据 (如自增 ID,整型 IP) 来说,要优先使用无符号整型来存储</strong></p><p><strong>原因：</strong></p><p>无符号相对于有符号可以多出一倍的存储空间</p><pre><code class="java">SIGNED INT -2147483648~2147483647UNSIGNED INT 0~4294967295</code></pre><p>VARCHAR(N) 中的 N 代表的是字符数，而不是字节数，使用 UTF8 存储 255 个汉字 Varchar(255)=765 个字节。<strong>过大的长度会消耗更多的内存。</strong></p><h2 id="避免使用-TEXT-BLOB-数据类型，最常见的-TEXT-类型可以存储-64k-的数据"><a href="#避免使用-TEXT-BLOB-数据类型，最常见的-TEXT-类型可以存储-64k-的数据" class="headerlink" title="避免使用 TEXT,BLOB 数据类型，最常见的 TEXT 类型可以存储 64k 的数据"></a>避免使用 TEXT,BLOB 数据类型，最常见的 TEXT 类型可以存储 64k 的数据</h2><h3 id="1-建议把-BLOB-或是-TEXT-列分离到单独的扩展表中"><a href="#1-建议把-BLOB-或是-TEXT-列分离到单独的扩展表中" class="headerlink" title="1.建议把 BLOB 或是 TEXT 列分离到单独的扩展表中**"></a>1.建议把 BLOB 或是 TEXT 列分离到单独的扩展表中**</h3><p>MySQL 内存临时表不支持 TEXT、BLOB 这样的大数据类型，如果查询中包含这样的数据，在排序等操作时，就不能使用内存临时表，必须使用磁盘临时表进行。而且对于这种数据，MySQL 还是要进行二次查询，会使 sql 性能变得很差，但是不是说一定不能使用这样的数据类型。</p><p>如果一定要使用，建议把 BLOB 或是 TEXT 列分离到单独的扩展表中，查询时一定不要使用 select * 而只需要取出必要的列，不需要 TEXT 列的数据时不要对该列进行查询。</p><h3 id="2-TEXT-或-BLOB-类型只能使用前缀索引"><a href="#2-TEXT-或-BLOB-类型只能使用前缀索引" class="headerlink" title="2.TEXT 或 BLOB 类型只能使用前缀索引"></a>2.TEXT 或 BLOB 类型只能使用前缀索引</h3><p>因为MySQL[1] 对索引字段长度是有限制的，所以 TEXT 类型只能使用前缀索引，并且 TEXT 列上是不能有默认值的</p><h3 id="3-避免使用-ENUM-类型"><a href="#3-避免使用-ENUM-类型" class="headerlink" title="3. 避免使用 ENUM 类型"></a>3. 避免使用 ENUM 类型</h3><p>修改 ENUM 值需要使用 ALTER 语句</p><p>ENUM 类型的 ORDER BY 操作效率低，需要额外操作</p><p>禁止使用数值作为 ENUM 的枚举值</p><h3 id="4-尽可能把所有列定义为-NOT-NULL"><a href="#4-尽可能把所有列定义为-NOT-NULL" class="headerlink" title="4. 尽可能把所有列定义为 NOT NULL"></a>4. 尽可能把所有列定义为 NOT NULL</h3><p><strong>原因：</strong></p><p>索引 NULL 列需要额外的空间来保存，所以要占用更多的空间</p><p>进行比较和计算时要对 NULL 值做特别的处理</p><h3 id="5-使用-TIMESTAMP-4-个字节-或-DATETIME-类型-8-个字节-存储时间"><a href="#5-使用-TIMESTAMP-4-个字节-或-DATETIME-类型-8-个字节-存储时间" class="headerlink" title="5. 使用 TIMESTAMP(4 个字节) 或 DATETIME 类型 (8 个字节) 存储时间"></a>5. 使用 TIMESTAMP(4 个字节) 或 DATETIME 类型 (8 个字节) 存储时间</h3><p>TIMESTAMP 存储的时间范围 1970-01-01 00:00:01 ~ 2038-01-19-03:14:07</p><p>TIMESTAMP 占用 4 字节和 INT 相同，但比 INT 可读性高</p><p>超出 TIMESTAMP 取值范围的使用 DATETIME 类型存储</p><p><strong>经常会有人用字符串存储日期型的数据（不正确的做法）</strong></p><p>•缺点 1：无法用日期函数进行计算和比较•缺点 2：用字符串存储日期要占用更多的空间</p><h3 id="6-同财务相关的金额类数据必须使用-decimal-类型"><a href="#6-同财务相关的金额类数据必须使用-decimal-类型" class="headerlink" title="6. 同财务相关的金额类数据必须使用 decimal 类型"></a>6. 同财务相关的金额类数据必须使用 decimal 类型</h3><p>•非精准浮点：float,double•精准浮点：decimal</p><p>Decimal 类型为精准浮点数，在计算时不会丢失精度</p><p>占用空间由定义的宽度决定，每 4 个字节可以存储 9 位数字，并且小数点要占用一个字节</p><p>可用于存储比 bigint 更大的整型数据</p>]]></content>
+    <content type="html"><![CDATA[<p><strong>简单写了一个获取B站直播源的小工具  测试能用 以后再详细写思路</strong></p><h1 id="教程："><a href="#教程：" class="headerlink" title="教程："></a>教程：</h1><h2 id="1-准备"><a href="#1-准备" class="headerlink" title="1.准备"></a>1.准备</h2><ul><li>potplayer  (一个播放器 不了解的可以去搜索一下)</li><li>我写的小工具</li></ul><h2 id="2-步骤"><a href="#2-步骤" class="headerlink" title="2 步骤"></a>2 步骤</h2><ol><li><p>打开程序 在上面的框输入B站直播间id（就是直播间地址栏后面的数字）</p></li><li><p>点击确定 获取到直播源地址 </p></li></ol><p>   <img src="https://ftp.bmp.ovh/imgs/2020/03/3c4cfa6aceaa37c5.png" srcset="/img/loading.gif" alt=""></p><ol start="3"><li><p>复制直播源地址 打开potplayer 按Ctrl + U  等待弹出界面(可能会有点卡) 然后把地址粘贴进去</p><p><img src="https://ftp.bmp.ovh/imgs/2020/03/55537dc0c537a5ce.png" srcset="/img/loading.gif" alt=""></p></li></ol><ol start="4"><li><p>右侧播放列表已经出现视频 双击观看即可</p><p><img src="https://ftp.bmp.ovh/imgs/2020/03/5427c592c89de98b.png" srcset="/img/loading.gif" alt=""></p></li></ol><ol start="5"><li><p>效果:</p><p><img src="https://ftp.bmp.ovh/imgs/2020/03/84856e342c0ccd3f.png" srcset="/img/loading.gif" alt=""></p></li></ol>]]></content>
     
     
     <categories>
       
       <category>学习</category>
       
-      <category>数据库</category>
+      <category>爬虫</category>
       
     </categories>
     
     
-  </entry>
-  
-  
-  
-  <entry>
-    <title>Hello World java！</title>
-    <link href="/2013/07/13/hello-world/"/>
-    <url>/2013/07/13/hello-world/</url>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-    
-    
-    <categories>
+    <tags>
       
-      <category>日记</category>
+      <tag>爬虫</tag>
       
-      <category>测试</category>
-      
-    </categories>
-    
+    </tags>
     
   </entry>
   

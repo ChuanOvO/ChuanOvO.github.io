@@ -144,128 +144,64 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/07/13/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">
-        <p class="h4 index-header">建站以及碎碎念</p>
+      <a href="/2020/03/22/%E7%94%A8%E7%88%AC%E8%99%AB%E8%8E%B7%E5%8F%96%E7%9B%B4%E6%92%AD%E6%BA%90/">
+        <p class="h4 index-header">用爬虫获取直播源</p>
       </a>
 
-      <a href="/2019/07/13/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">
+      <a href="/2020/03/22/%E7%94%A8%E7%88%AC%E8%99%AB%E8%8E%B7%E5%8F%96%E7%9B%B4%E6%92%AD%E6%BA%90/">
         
         
           
         
         <div class="index-excerpt" >
-          <div class="index-text mb-1">　　年前自己试着建了一个个人博客，用的方式是wordpress+服务器，初见很美好，但是我很快发现了问题：这种方式搭建个人博客的成本对于我来说实在是太高了。域名费用还好，稍微好一点的服务器我就已经承担不住了，更不用说建站之后的维护成本。况且这样也违背了我当初的建站目的：记录自己的成长，所以我选择了hexo+github来使我专注于内容本身。  　　2019年也意味着我毕业快两年了，因为自己的任性和懒惰一事无成。有时候想在朋友圈和微博吐槽发泄又觉得太矫情，也不想因为自己而坏了别人的好心情。不管怎么说，今年是最后一次机会了，所以想开这个博客来记录自己。一句谚语与君共勉: “The best time to plant a tree was a decade ago, and following is now.”
+          <div class="index-text mb-1">简单写了一个获取B站直播源的小工具  测试能用 以后再详细写思路
+教程：1.准备
+potplayer  (一个播放器 不了解的可以去搜索一下)
+我写的小工具
+
+2 步骤
+打开程序 在上面的框输入B站直播间id（就是直播间地址栏后面的数字）
+
+点击确定 获取到直播源地址 
+
+
+   
+
+复制直播源地址 打开potplayer 按Ctrl + U  等待弹出界面(可能会有点卡) 然后把地址粘贴进去
+
+
+
+
+右侧播放列表已经出现视频 双击观看即可
+
+
+
+
+效果:
+
+
+
 </div>
         </div>
       </a>
 
       <div class="index-btm">
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-07-13&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/%E6%97%A5%E8%AE%B0">日记</a>&nbsp;
-          
-            <a href="/categories/%E6%9D%82%E8%B0%88">杂谈</a>&nbsp;
-          &nbsp;
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019/06/13/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/">
-        <p class="h4 index-header">数据库设计</p>
-      </a>
-
-      <a href="/2019/06/13/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">数据库字段设计规范优先选择符合存储需要的最小的数据类型原因：
-列的字段越大，建立索引时所需要的空间也就越大，这样一页中所能存储的索引节点的数量也就越少也越少，在遍历时所需要的 IO 次数也就越多，索引的性能也就越差。
-方法：
-a.将字符串转换成数字类型存储,如:将 IP 地址转换成整形数据
-MySQL 提供了两个方法来处理 ip 地址
-•inet_aton 把 ip 转为无符号整型 (4-8 位)•inet_ntoa 把整型的 ip 转为地址
-插入数据前，先用 inet_aton 把 ip 地址转为整型，可以节省空间，显示数据时，使用 inet_ntoa 把整型的 ip 地址转为地址显示即可。
-b.对于非负型的数据 (如自增 ID,整型 IP) 来说,要优先使用无符号整型来存储
-原因：
-无符号相对于有符号可以多出一倍的存储空间
-SIGNED INT -2147483648~2147483647
-UNSIGNED INT 0~4294967295
-VARCHAR(N) 中的 N 代表的是字符数，而不是字节数，使用 UTF8 存储 255 个汉字 Varchar(255)=765 个字节。</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-06-13&nbsp;&nbsp;
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-22&nbsp;&nbsp;
         
         
           <i class="iconfont icon-inbox"></i>
           
             <a href="/categories/%E5%AD%A6%E4%B9%A0">学习</a>&nbsp;
           
-            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a>&nbsp;
+            <a href="/categories/%E7%88%AC%E8%99%AB">爬虫</a>&nbsp;
           &nbsp;
         
         
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2013/07/13/hello-world/">
-        <p class="h4 index-header">Hello World java！</p>
-      </a>
-
-      <a href="/2013/07/13/hello-world/">
-        
-        
+          <i class="iconfont icon-tag"></i>
           
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post1$ hexo new "My New Post"
-
-More info: Writing
-Run server1$ hexo server
-
-More info: Server
-Generate static files1$ hexo generate
-
-More info: Generating
-Deploy to remote sites1$ hexo deploy
-
-More info: Deployment
-</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2013-07-13&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
+            <a href="/tags/%E7%88%AC%E8%99%AB">爬虫</a>&nbsp;
           
-            <a href="/categories/%E6%97%A5%E8%AE%B0">日记</a>&nbsp;
-          
-            <a href="/categories/%E6%B5%8B%E8%AF%95">测试</a>&nbsp;
-          &nbsp;
-        
         
       </div>
     </div>
